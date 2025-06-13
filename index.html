@@ -63,7 +63,7 @@
 
                 <div class="text-center">
                     <button id="completeButton" class="app-button mt-6 daily-button">✅ Tamamladım</button>
-                    <button onclick="resetProgress()" class="app-button mt-6 daily-button">🗑️ Sıfırla</button>
+                    <button id="resetProgressButton" class="app-button mt-6 daily-button">🗑️ Sıfırla</button>
                     <button onclick="copyCurrentSapma()" class="app-button mt-6 daily-button">📄 Kopyala​</button>
                     <button id="randomFavButton" class="app-button mt-6 daily-button">
                         🎲 Rastgele Favori Göster
@@ -546,6 +546,17 @@
             <div class="flex justify-center space-x-3">
                 <button id="cancelClearHistory" class="px-4 py-2 rounded-lg border app-secondary text-sm" style="background-color: var(--bg-primary); color: var(--text-primary);">İptal</button>
                 <button id="confirmClearHistory" class="px-4 py-2 rounded-lg bg-red-500 text-white text-sm">Temizle</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="resetConfirmationModal"  class="fixed inset-0 flex items-center justify-center z-50 confirm-dialog hidden">
+        <div class="app-card border rounded-xl p-5 shadow-lg max-w-xs w-full">
+            <h3 class="font-medium mb-3 text-center">İlerlemeyi Sıfırla</h3>
+            <p class="text-sm mb-5 text-center">Tüm ilerlemenizi sıfırlamak istediğinizden emin misiniz? Bu işlem geri alınamaz.</p>
+            <div class="flex justify-center space-x-3">
+                <button id="cancelResetBtn" class="px-4 py-2 rounded-lg border app-secondary text-sm" style="background-color: var(--bg-primary); color: var(--text-primary);">İptal</button>
+                <button id="confirmResetBtn" class="px-4 py-2 rounded-lg bg-red-500 text-white text-sm">Temizle</button>
             </div>
         </div>
     </div>

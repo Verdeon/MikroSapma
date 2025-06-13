@@ -63,6 +63,10 @@ const cancelClearHistory = document.getElementById('cancelClearHistory');
 const confirmClearHistory = document.getElementById('confirmClearHistory');
 const internalLockButton = document.getElementById('internalLockButton');
 const externalLockButton = document.getElementById('externalLockButton');
+const resetConfirmationModal = document.getElementById('resetConfirmationModal');
+const confirmResetBtn = document.getElementById('confirmResetBtn');
+const cancelResetBtn = document.getElementById('cancelResetBtn');
+const resetProgressButton = document.getElementById('resetProgressButton');
 const body = document.body;
 
 
@@ -127,6 +131,27 @@ function showRandomDeviations() {
         source: externalSourceEl.textContent
     }));
 }
+
+if (resetProgressButton) {
+    resetProgressButton.addEventListener('click', () => {
+        resetConfirmationModal.classList.remove('hidden'); // Show the modal
+    });
+}
+
+// Add event listeners for the modal buttons
+if (confirmResetBtn) {
+    confirmResetBtn.addEventListener('click', () => {
+        resetProgress(); // Call the actual reset function
+        resetConfirmationModal.classList.add('hidden'); // Hide the modal
+    });
+}
+
+if (cancelResetBtn) {
+    cancelResetBtn.addEventListener('click', () => {
+        resetConfirmationModal.classList.add('hidden'); // Hide the modal
+    });
+}
+
 
 function showLockedPrompt() {
     const entered = prompt("🔐 Şifreli sapma için şifreyi gir:");
