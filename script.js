@@ -142,6 +142,13 @@ function showLockedPrompt() {
     externalDeviationEl.textContent = match.external;
     externalSourceEl.textContent = match.source || "";
 
+    if (internalCardLocked) {
+        toggleLock('internal');
+    }
+    if (externalCardLocked) {
+        toggleLock('external');
+    }
+
     updateHistory();
     updateLikeButtons();
 }
