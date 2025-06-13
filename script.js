@@ -13,11 +13,6 @@
     };
     let rerollCount = 0;
     const maxRerollFree = 5;
-    // Geliştirici premium test modu
-const DEV_MODE = new URLSearchParams(window.location.search).get("devmode") === "verdeon";
-
-const isPremium = DEV_MODE || false;
-
 let internalDeviations = [];
 let externalDeviations = [];
 let lockedDeviations = [];
@@ -133,18 +128,9 @@ async function loadDeviations() {
     }
 
 function showLockedPrompt() {
-    // Geliştirici premium test modu
-const DEV_MODE = new URLSearchParams(window.location.search).get("devmode") === "verdeon";
-
-const isPremium = DEV_MODE || false;
 
     const today = new Date().toLocaleDateString();
     const alreadyUsed = localStorage.getItem("lastLockedOpen") === today;
-
-    if (!isPremium && alreadyUsed) {
-        alert("Ücretsiz kullanıcılar bugün sadece 1 şifreli sapma açabilir. Premium ile sınırsız erişim sağlanır.");
-        return;
-    }
 
     const entered = prompt("🔐 Şifreli sapma için şifreyi gir:");
     if (!entered) return;
@@ -162,10 +148,6 @@ const isPremium = DEV_MODE || false;
     updateHistory();
     updateLikeButtons();
     updateRerollUI();
-
-    if (!isPremium) {
-        localStorage.setItem("lastLockedOpen", today);
-    }
 }
 
 
@@ -226,11 +208,6 @@ function saveRerollData() {
 }
 
 function handleReroll() {
-  if (!isPremium && rerollCount >= maxRerollFree) {
-    updateRerollUI(); // buton kilitli kalır
-    return;
-  }
-
   rerollCount++;
   saveRerollData();
   updateRerollUI();
@@ -241,21 +218,6 @@ function handleReroll() {
 function updateRerollUI() {
   const rerollDisplay = document.getElementById("rerollCounter");
   const refreshBtn = document.getElementById("refreshButton");
-
-  if (rerollDisplay) {
-    if (isPremium) {
-      rerollDisplay.textContent = "♾️ Sınırsız";
-    } else {
-      rerollDisplay.textContent = `🔁 ${maxRerollFree - rerollCount} hakkın kaldı`;
-    }
-  }
-
-  if (refreshBtn) {
-    const disabled = !isPremium && rerollCount >= maxRerollFree;
-    refreshBtn.disabled = disabled;
-    refreshBtn.classList.toggle("opacity-50", disabled);
-    refreshBtn.title = 'Bugünlük hakkın doldu'
-  }
 }
 
     function updateRefreshButtonText() {
@@ -721,18 +683,6 @@ function showRandomFavorite() {
         }
 
         updateRerollUI();
-
-        const badge = document.getElementById('membershipBadge');
-
-        if (badge) {
-        const DEV_MODE = new URLSearchParams(window.location.search).get("devmode") === "verdeon";
-        const isPremium = DEV_MODE;
-
-        badge.innerHTML = isPremium
-            ? `<span class="text-yellow-500">💎 Premium Üye</span>`
-            : `<span title="Daha fazla hak için premium'a geç">👤 Standart Üye</span>`;
-        }
-
 
         const last = JSON.parse(localStorage.getItem('lastDeviation'));
         if (last) {
