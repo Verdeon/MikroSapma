@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="icon" href="img/favicon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <meta name="description" content="Mikro Sapma, günlük alışkanlıklarını bilinçli şekilde kırmanı sağlayan yaratıcı bir uygulamadır. İçsel ve dışsal sapmalarla farkındalığını artır.">
@@ -16,10 +17,13 @@
 <body class="h-full theme-light">
     <div id="app" class="app min-h-full flex flex-col">
         <!-- Main Content -->
-        <main class="flex-grow flex flex-col items-center justify-center p-4 md:p-8">
+        <main class="flex-grow flex flex-col items-center justify-center p-4 md:p-4">
             <div id="mainView" class="w-full max-w-md">
                 <!-- Header -->
-                <div class="text-center mb-8">
+                <div class="text-center justify-center items-center text-center mb-8">
+                    <div class="mx-auto mb-2" style="width: fit-content;">
+                        <img src="img/favicon.png" width="48px" height="48px" alt="Mikro Sapma Logo" />
+                    </div>
                     <h1 class="text-2xl font-semibold mb-1">Bugünün Mikro Sapmaları</h1>
                     <p class="text-sm opacity-70">Günlük 2 derecelik kaçış</p>
                     <p id="copyAlert" class="hidden italic">Sapma metinleri panoya kopyalandı. İstediğin yere yapıştırabilirsin 📋</p>
