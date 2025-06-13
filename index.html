@@ -1,0 +1,531 @@
+<html lang="tr" class="h-full">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mikro Sapma — Günlük 2 Derecelik Kaçış</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    </head>
+<body class="h-full theme-light">
+    <div id="app" class="app min-h-full flex flex-col">
+        <!-- Main Content -->
+        <main class="flex-grow flex flex-col items-center justify-center p-4 md:p-8">
+            <div id="mainView" class="w-full max-w-md">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-2xl font-semibold mb-1">Bugünün Mikro Sapmaları</h1>
+                    <p class="text-sm opacity-70">Günlük 2 derecelik kaçış</p>
+                    <p id="copyAlert" class="hidden italic">Sapma metinleri panoya kopyalandı. İstediğin yere yapıştırabilirsin 📋</p>
+                </div>
+
+<div id="membershipBadge" class="mb-4 flex items-center gap-2 text-sm font-medium cursor-default"></div>
+
+
+                
+                <!-- Cards -->
+                <div class="space-y-4">
+                    <!-- Card 1: İçsel Sapma -->
+                    <div id="internalCard" class="card app-card border rounded-xl p-5 shadow-sm">
+                        <button class="lock-button absolute top-2 right-2 text-lg" id="internalLockButton" onclick="toggleLock('internal')">🔒</button>
+                        <div class="flex items-start">
+                            <div class="text-2xl mr-3">🧠</div>
+                            <div>
+                                <h3 class="font-medium mb-1">İçsel Sapma</h3>
+                                <p id="internalDeviation" class="text-sm leading-relaxed">Bugün, 10 dakika boyunca her hareketi ağır çekimde yap. Sabırsızlığını gözlemle.</p>
+                            </div>
+                        </div>
+                        
+                        <button class="like-button absolute bottom-2 right-2 text-lg" id="internalLikeButton" onclick="toggleLike('internal')">🤍</button>
+                    </div>
+                    
+                    <!-- Card 2: Dışsal Sapma -->
+                    <div id="externalCard" class="card app-card border rounded-xl p-5 shadow-sm">
+                        <button class="lock-button absolute top-2 right-2 text-lg" id="externalLockButton" onclick="toggleLock('external')">🔒</button>
+                        <div class="flex items-start">
+                            <div class="text-2xl mr-3">🌍</div>
+                            <div>
+                                <h3 class="font-medium mb-1">Dışsal Sapma</h3>
+                                <p id="externalDeviation" class="text-sm leading-relaxed">Dünyada her gün yaklaşık 385.000 bebek doğuyor. Bu, saniyede 4.5 yeni hayat demek.</p>
+                                <p id="externalSource" class="text-xs mt-2 app-source italic">Kaynak: BM Dünya Nüfus Beklentileri, 2023</p>
+                            </div>
+                        </div>
+
+                        <button class="like-button absolute bottom-2 right-2 text-lg" id="externalLikeButton" onclick="toggleLike('external')">🤍</button>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button id="completeButton" class="app-button mt-6 daily-button">✅ Tamamladım</button>
+                    <button onclick="resetProgress()" class="app-button mt-6 daily-button">🗑️ Sıfırla</button>
+                    <button onclick="copyCurrentSapma()" class="app-button mt-6 daily-button">📄 Kopyala​</button>
+                    <button id="randomFavButton" class="app-button mt-6 daily-button">
+                        🎲 Rastgele Favori Göster
+                    </button>
+                    <button onclick="showLockedPrompt()" class="text-sm bg-yellow-200 text-yellow-800 rounded px-3 py-1 mt-2 hover:bg-yellow-300">
+                        🔐 Şifreli Sapma Aç
+                    </button>
+                    <div id="progressInfo" class="mt-2 text-sm opacity-70"></div>
+                    <div id="badge" class="text-xl mt-1"></div>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-6 flex justify-center">
+                    <button id="refreshButton" class="app-button text-white px-4 py-2 rounded-lg flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        Yeni sapma göster
+                    </button>
+                </div>
+            </div>
+            
+                <!-- Favorites View (Hidden by default) -->
+                <div id="favoritesView" class="w-full max-w-md hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold">Favori Sapmalar</h2>
+                        <button id="backFromFavorites" class="opacity-70 hover:opacity-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                <!-- Empty Favorites State -->
+                <div id="emptyFavoritesState" class="hidden text-center py-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto opacity-30 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z"></path>
+                    </svg>
+                    <p class="text-sm opacity-70">Henüz favori yok</p>
+                </div>
+            </div>
+            
+            <!-- History View (Hidden by default) -->
+            <div id="historyView" class="w-full max-w-md hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold">Geçmiş Sapmalar</h2>
+                    <button id="backFromHistory" class="opacity-70 hover:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2 mb-4">
+                <label for="historyFilter" class="text-sm font-medium">Zaman Filtresi:</label>
+                <select id="historyFilter" class="border border-gray-300 rounded-lg px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition bg-[var(--bg-primary)] dark:bg-[var(--card-bg)] dark:text-[var(--text-primary)] timeSelect">
+                    <option value="all">Tüm Zamanlar</option>
+                    <option value="24hours">Son 24 Saat</option>
+                    <option value="7days">Son 7 Gün</option>
+                    <option value="15days">Son 15 Gün</option>
+                    <option value="thisMonth">Bu Ay</option>
+                </select>
+                </div>
+                
+                <!-- Clear History Button -->
+                <div class="mb-4 flex justify-end">
+                    <button id="clearHistoryBtn" class="text-sm px-3 py-1 rounded-lg border border-red-300 text-red-500 hover:bg-red-50 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        Geçmişi Temizle
+                    </button>
+                </div>
+                
+                <div id="historyList" class="space-y-4">
+                <div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, 10 dakika boyunca her hareketi ağır çekimde yap. Sabırsızlığını gözlemle.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünyada her gün yaklaşık 385.000 bebek doğuyor. Bu, saniyede 4.5 yeni hayat demek.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: BM Dünya Nüfus Beklentileri, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, normalde konuşmadığın bir iş arkadaşına veya komşuna soru sor.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Amazon yağmur ormanları, dünyadaki oksijen üretiminin %20'sini sağlıyor ve her dakika bir futbol sahası büyüklüğünde alan yok oluyor.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: Amazon Koruma Derneği, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, normalde konuşmadığın bir iş arkadaşına veya komşuna soru sor.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünyada her gün 2 milyar insan temiz içme suyuna erişemiyor. Bu, her 4 kişiden 1'i demek.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: Dünya Sağlık Örgütü Su Raporu, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, bir arkadaşına veya aile üyesine normalde söylemediğin bir takdir cümlesi söyle.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünya nüfusunun %55'i şehirlerde yaşıyor ve bu oran 2050'ye kadar %68'e çıkacak.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: BM Habitat Kentleşme Raporu, 2022</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün ayakkabılarını ters ayağına giy ve 5 dakika öyle dolaş. Hissettiğin garipliği fark et.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Kutuplardaki buzullar son 30 yılda %40 oranında inceldi. Bu, deniz seviyesinin yükselmesine katkıda bulunuyor.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: NASA İklim Değişikliği Araştırması, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, her şeyi baskın olmayan elinle yapmayı dene. Diş fırçalamak, kapı açmak, telefon tutmak...</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Okyanuslar, atmosferdeki karbondioksitin %30'unu emer. Bu, iklim değişikliğini yavaşlatır ancak deniz asitlenmesine neden olur.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: NOAA Okyanus Asitlenmesi Programı, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, gözlerini kapatıp bir odada 30 saniye dolaş. Mekânsal farkındalığını test et.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Okyanuslar, atmosferdeki karbondioksitin %30'unu emer. Bu, iklim değişikliğini yavaşlatır ancak deniz asitlenmesine neden olur.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: NOAA Okyanus Asitlenmesi Programı, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, bir şeyi eleştirmeden önce 10 saniye bekle ve olumlu bir yönünü bulmaya çalış.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>İnsanlar günde ortalama 80-100 kez telefonlarını kontrol ediyor. Bu, uyanık olduğumuz her 10 dakikada bir demek.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: Deloitte Dijital Tüketici Araştırması, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, bir saat boyunca hiç saat kontrol etmeden yaşa. Zamanın nasıl aktığını hisset.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünyada her gün 2 milyar insan temiz içme suyuna erişemiyor. Bu, her 4 kişiden 1'i demek.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: Dünya Sağlık Örgütü Su Raporu, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün ayakkabılarını ters ayağına giy ve 5 dakika öyle dolaş. Hissettiğin garipliği fark et.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünyada her gün 2 milyar insan temiz içme suyuna erişemiyor. Bu, her 4 kişiden 1'i demek.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: Dünya Sağlık Örgütü Su Raporu, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">17 Mayıs 2025</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, her şeyi baskın olmayan elinle yapmayı dene. Diş fırçalamak, kapı açmak, telefon tutmak...</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünyada her gün yaklaşık 385.000 bebek doğuyor. Bu, saniyede 4.5 yeni hayat demek.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: BM Dünya Nüfus Beklentileri, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">12 Mayıs 2023</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, her şeyi baskın olmayan elinle yapmayı dene.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünya'daki arı popülasyonu son 30 yılda %25'ten fazla azaldı. Bu durum, küresel gıda üretimini tehdit ediyor.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: WWF Yaşayan Gezegen Raporu, 2022</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">11 Mayıs 2023</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün, bir saat boyunca hiç saat kontrol etmeden yaşa.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Dünyada her gün yaklaşık 385.000 bebek doğuyor. Bu, saniyede 4.5 yeni hayat demek.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: BM Dünya Nüfus Beklentileri, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="app-card border rounded-xl p-4 shadow-sm">
+                    <h3 class="font-medium text-sm mb-2">10 Mayıs 2023</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🧠</span>
+                            <p>Bugün bir yabancıya gülümse ve selam ver.</p>
+                        </div>
+                        <div class="flex">
+                            <span class="mr-2 flex-shrink-0">🌍</span>
+                            <div>
+                                <p>Okyanuslar, atmosferdeki karbondioksitin %30'unu emer. Bu, iklim değişikliğini yavaşlatır ancak deniz asitlenmesine neden olur.</p>
+                                <p class="text-xs mt-1 app-source italic">Kaynak: NOAA Okyanus Asitlenmesi Programı, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+                <!-- Empty History State -->
+                <div id="emptyHistoryState" class="hidden text-center py-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto opacity-30 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <p class="text-sm opacity-70">Henüz geçmiş yok</p>
+                </div>
+            </div>
+            
+            <!-- Settings View (Hidden by default) -->
+            <div id="settingsView" class="w-full max-w-md hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold">Ayarlar</h2>
+                    <button id="backFromSettings" class="opacity-70 hover:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Theme Settings -->
+                <div class="app-card border rounded-xl p-5 shadow-sm mb-4">
+                    <h3 class="font-medium mb-3">Tema</h3>
+                    <div class="flex space-x-2" id="themeButtonsContainer">
+                        <button id="lightTheme" class="theme-button px-3 py-2 rounded-lg bg-gray-100 text-gray-800 text-sm">Açık</button>
+                        <button id="darkTheme" class="theme-button px-3 py-2 rounded-lg bg-gray-700 text-white text-sm">Koyu</button>
+                        <button id="sepiaTheme" class="theme-button px-3 py-2 rounded-lg bg-amber-50 text-amber-900 text-sm">Sepya</button>
+                        <button id="highContrastTheme" class="theme-button px-3 py-2 rounded-lg bg-black text-white text-sm">Yüksek Kontrast</button>
+                        <button id="lavenderTheme" class="theme-button px-3 py-2 rounded-lg bg-purple-50 text-purple-900 text-sm" data-theme="lavender">Lavanta</button>
+                        <button id="mintTheme" class="theme-button px-3 py-2 rounded-lg bg-green-50 text-green-900 text-sm" data-theme="mint">Nane</button>
+                        <button id="peachTheme" class="theme-button px-3 py-2 rounded-lg bg-orange-50 text-orange-900 text-sm" data-theme="peach">Şeftali</button>
+                        <button id="skyTheme" class="theme-button px-3 py-2 rounded-lg bg-blue-50 text-blue-900 text-sm" data-theme="sky">Gökyüzü</button>
+                    </div>
+                </div>
+
+                <label class="flex items-center space-x-2 mt-4">
+  <input type="checkbox" id="premiumToggle" class="accent-green-500">
+  <span class="text-sm">Premium üyelik (geliştirici modu)</span>
+</label>
+
+                
+                <!-- Deviation Preferences -->
+                <div class="app-card border rounded-xl p-5 shadow-sm mb-4">
+                    <h3 class="font-medium mb-3">Sapma Tercihleri</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium mb-2">İçsel:</h4>
+                        <div class="flex flex-wrap gap-2">
+                                <label class="checkbox-container">
+                                <input type="checkbox" checked="" name="internal" value="physical" />
+                                <span class="checkmark"></span>
+                                <span class="label-text">Fiziksel</span>
+                                </label>
+                            </label>
+                            <label class="flex items-center">
+                                <label class="checkbox-container">
+                                <input type="checkbox" checked="" name="internal" value="mental" />
+                                <span class="checkmark"></span>
+                                <span class="label-text">Zihinsel</span>
+                                </label>
+                            </label>
+                            <label class="flex items-center">
+                                <label class="checkbox-container">
+                                <input type="checkbox" checked="" name="internal" value="social" />
+                                <span class="checkmark"></span>
+                                <span class="label-text">Sosyal</span>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-sm font-medium mb-2">Dışsal:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <label class="flex items-center">
+                                <label class="checkbox-container">
+                                <input type="checkbox" checked="" name="internal" value="nature" />
+                                <span class="checkmark"></span>
+                                <span class="label-text">Doğa</span>
+                                </label>
+                            </label>
+                            <label class="flex items-center">
+                                <label class="checkbox-container">
+                                <input type="checkbox" checked="" name="internal" value="human" />
+                                <span class="checkmark"></span>
+                                <span class="label-text">İnsan</span>
+                                </label>
+                            </label>
+                            <label class="flex items-center">
+                                <label class="checkbox-container">
+                                <input type="checkbox" checked="" name="internal" value="random" />
+                                <span class="checkmark"></span>
+                                <span class="label-text">Rastgele</span>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reminder Settings -->
+                <div class="app-card border rounded-xl p-5 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-medium">Günlük Hatırlatma</h3>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" id="reminderToggle">
+                            <div
+                                class="w-11 h-6 
+                                    rounded-full 
+                                    after:content-[''] 
+                                    after:absolute 
+                                    after:top-[2px] after:left-[2px] 
+                                    after:bg-[var(--card-bg)]
+                                    after:border
+                                    after:border-[var(--accent)] 
+                                    after:rounded-full 
+                                    after:h-5 after:w-5 
+                                    after:transition-all 
+                                    peer-checked:after:translate-x-full 
+                                    peer-checked:bg-[var(--accent)]
+                                    bg-[var(--bg-primary)]
+                                    border border-[var(--accent)]
+                                    peer-checked:border-transparent
+                                    peer-focus:outline-none"
+                            ></div>
+                            </label>
+                    </div>
+                </div>
+            </div>
+                            <!-- Footer Navigation -->
+                <div class="mt-8 flex justify-center space-x-4 text-sm">
+                    <button id="historyButton" class="flex items-center opacity-70 hover:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Geçmiş
+                    </button>
+                    <button id="favoritesButton" class="flex items-center opacity-70 hover:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z"/>
+                        </svg>
+                        Favoriler
+                    </button>
+                    <button id="settingsButton" class="flex items-center opacity-70 hover:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Ayarlar
+                    </button>
+                </div>
+                
+                      <p class="text-center text-xs mt-8 opacity-40">
+                        © 2025 Mikro Sapma. Tüm hakları saklıdır.
+                      </p>
+        </main>
+    </div>
+    
+    <!-- Confirmation Dialog -->
+    <div id="confirmDialog" class="fixed inset-0 flex items-center justify-center z-50 confirm-dialog hidden">
+        <div class="app-card border rounded-xl p-5 shadow-lg max-w-xs w-full">
+            <h3 class="font-medium mb-3 text-center">Geçmişi Temizle</h3>
+            <p class="text-sm mb-5 text-center">Tüm geçmiş sapmaları silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</p>
+            <div class="flex justify-center space-x-3">
+                <button id="cancelClearHistory" class="px-4 py-2 rounded-lg border app-secondary text-sm" style="background-color: var(--bg-primary); color: var(--text-primary);">İptal</button>
+                <button id="confirmClearHistory" class="px-4 py-2 rounded-lg bg-red-500 text-white text-sm">Temizle</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="favoritePopup" class="fixed bottom-20 right-4 bg-white border shadow-lg rounded-lg p-4 w-72 hidden z-50 transition-opacity duration-300">
+    <div class="text-sm space-y-2">
+        <div><strong>🧠 İçsel:</strong> <span id="popupInternal"></span></div>
+        <div><strong>🌍 Dışsal:</strong> <span id="popupExternal"></span></div>
+        <div id="popupSource" class="text-xs text-gray-500 italic"></div>
+    </div>
+    </div>
+
+<script src="script.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94111b8921f10d37',t:'MTc0NzQ2Mzg2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
+</body></html>

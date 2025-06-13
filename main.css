@@ -1,0 +1,231 @@
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+        }
+        .theme-light {
+            --bg-primary: #f8f9fa;
+            --text-primary: #212529;
+            --card-bg: #ffffff;
+            --card-border: #e9ecef;
+            --accent: #6366f1;
+            --secondary-bg: #e9ecef;
+            --source: #6b7280;
+        }
+        .theme-dark {
+            --bg-primary: #121212;
+            --text-primary: #e9ecef;
+            --card-bg: #1e1e1e;
+            --card-border: #333333;
+            --accent: #818cf8;
+            --secondary-bg: #2a2a2a;
+            --source: #9ca3af;
+        }
+        .theme-sepia {
+            --bg-primary: #f5f0e6;
+            --text-primary: #433422;
+            --card-bg: #fdf6e3;
+            --card-border: #e6d9c0;
+            --accent: #d4a373;
+            --secondary-bg: #e9e2d0;
+            --source: #7c6e5c;
+        }
+        .theme-highContrast {
+            --bg-primary: #000000;
+            --text-primary: #ffffff;
+            --card-bg: #1a1a1a;
+            --card-border: #444444;
+            --accent: #ff0000;
+            --secondary-bg: #333333;
+            --source: #00ffff;
+        }
+        .theme-lavender {
+            --bg-primary: #f8f5ff;
+            --text-primary: #5a4a77;
+            --card-bg: #ffffff;
+            --card-border: #e2d8f3;
+            --accent: #c4a1ff;
+            --secondary-bg: #f0e8ff;
+            --source: #9d8bb0;
+        }
+        .theme-mint {
+            --bg-primary: #f0f9f5;
+            --text-primary: #3a6a5b;
+            --card-bg: #ffffff;
+            --card-border: #d6ebe3;
+            --accent: #97d8bb;
+            --secondary-bg: #e3f4ed;
+            --source: #7aad99;
+        }
+        .theme-peach {
+            --bg-primary: #fff5f0;
+            --text-primary: #a06a55;
+            --card-bg: #ffffff;
+            --card-border: #f5e1d6;
+            --accent: #ffbea1;
+            --secondary-bg: #ffeee6;
+            --source: #c49580;
+        }
+        .theme-sky {
+            --bg-primary: #f0f8ff;
+            --text-primary: #4a6a8a;
+            --card-bg: #ffffff;
+            --card-border: #d6e6f5;
+            --accent: #a1c6ff;
+            --secondary-bg: #e6f0ff;
+            --source: #7a95b0;
+        }
+        .app {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .app-card {
+            background-color: var(--card-bg);
+            border-color: var(--card-border);
+        }
+        .app-accent {
+            color: var(--accent);
+        }
+        .app-button {
+            background-color: var(--accent);
+        }
+        .app-secondary {
+            background-color: var(--secondary-bg);
+        }
+        .app-source {
+            color: var(--source);
+        }
+        .confirm-dialog {
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+#themeButtonsContainer { /* Tema butonlarını içeren kapsayıcı */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem; /* Butonlar arası boşluk (isteğe bağlı) */
+    justify-content: center; /* Yatayda ortala (isteğe bağlı) */
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  gap: 8px;
+}
+
+/* Gizli native checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Özel kutu */
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #888;
+  border-radius: 4px;
+  position: relative;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Tik işareti (svg gibi) */
+.checkmark::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  opacity: 0;
+  transform: rotate(45deg);
+  transition: opacity 0.3s ease;
+}
+
+/* İşaretli olduğunda */
+.checkbox-container input:checked + .checkmark {
+  background-color: var(--accent); /* mavi */
+  border-color: var(--text-primary);
+}
+
+/* Tik işareti görünür */
+.checkbox-container input:checked + .checkmark::after {
+  opacity: 1;
+}
+
+#reminderToggle:checked {
+    background-color: var(--bg-primary);
+}
+
+::-webkit-scrollbar{
+    width: 0;
+}
+
+.card.locked {
+    border: 2px solid var(--accent);
+    opacity: 0.8;
+}
+
+.lock-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.2s ease-in-out;
+        z-index: 10; /* Butonun diğer içeriklerin üzerinde görünmesini sağlar (isteğe bağlı) */
+    }
+
+    .lock-button:hover {
+        opacity: 1;
+    }
+
+    .card {
+        transition: all 0.3s ease;
+        cursor: default;
+        position: relative; /* Kilit butonunu konumlandırmak için */
+    }
+
+.daily-button {
+    border-radius: 3px;
+    padding: 5px;
+    font-size: small;
+    color: var(--bg-primary);
+    opacity: 0.7;
+}
+
+.daily-button:hover {
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.timeSelect {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    padding-right: 15px;
+}

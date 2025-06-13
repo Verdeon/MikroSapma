@@ -1,0 +1,165 @@
+{
+"internal" : [
+    { "id": 1, "category": "physical", "text": "Bugün, her saat başı 2 dakika boyunca gözlerini kapat ve derin nefes al." },
+    { "id": 2, "category": "physical", "text": "Bugün, yürürken adımlarını say ve her 10 adımda bir durup etrafına bak." },
+    { "id": 3, "category": "physical", "text": "Bugün, bir öğünde sadece tek renk yiyecekler yemeyi dene." },
+    { "id": 4, "category": "physical", "text": "Bugün, 10 dakika boyunca vücudunun farklı bölgelerindeki hisleri fark etmeye çalış." },
+    { "id": 5, "category": "physical", "text": "Bugün, evde farklı bir yoldan yürümeyi dene." },
+    { "id": 6, "category": "physical", "text": "Bugün, bir aktiviteyi yaparken (örneğin, bulaşık yıkamak) sadece o aktiviteye odaklan." },
+    { "id": 7, "category": "physical", "text": "Bugün, bir saat boyunca konuşurken el hareketlerini gözlemle." },
+    { "id": 8, "category": "physical", "text": "Bugün, uyumadan önce vücudunun her yerini gevşetmeye çalış." },
+    { "id": 9, "category": "physical", "text": "Bugün, farklı bir sıcaklıkta duş almayı dene." },
+    { "id": 10, "category": "physical", "text": "Bugün, bir gün boyunca oturuş pozisyonuna dikkat et." },
+    { "id": 11, "category": "mental", "text": "Bugün, bir konuda normalde katılmadığın bir görüşü savunmaya çalış." },
+    { "id": 12, "category": "mental", "text": "Bugün, bir problemine farklı açılardan bakmak için zihin haritası oluştur." },
+    { "id": 13, "category": "mental", "text": "Bugün, bir saat boyunca sosyal medyadan uzak dur." },
+    { "id": 14, "category": "mental", "text": "Bugün, bir kelime seç ve onunla ilgili aklına gelen her şeyi yaz." },
+    { "id": 15, "category": "mental", "text": "Bugün, bir konuda \"neden\" sorusunu 5 kere sormayı dene." },
+    { "id": 16, "category": "mental", "text": "Bugün, bir düşünceni sorgulamak için \"peki ya tersi doğruysa?\" diye sor." },
+    { "id": 17, "category": "mental", "text": "Bugün, bir şeyi yapmadan önce 10 saniye bekle ve sonra yapmaya karar ver." },
+    { "id": 18, "category": "mental", "text": "Bugün, bir şeyi öğrenmek için bir belgesel izle veya bir makale oku." },
+    { "id": 19, "category": "mental", "text": "Bugün, bir anını farklı bir bakış açısıyla hatırlamaya çalış." },
+    { "id": 20, "category": "mental", "text": "Bugün, bir gün boyunca iç sesini gözlemle." },
+    { "id": 21, "category": "social", "text": "Bugün, birine yardım ederken ismini sormadan ve karşılık beklemeden yap." },
+    { "id": 22, "category": "social", "text": "Bugün, bir yabancıya iltifat et. Ama içten ol." },
+    { "id": 23, "category": "social", "text": "Bugün, normalde konuşmadığın bir iş arkadaşına veya komşuna soru sor." },
+    { "id": 24, "category": "social", "text": "Bugün, bir arkadaşına veya aile üyesine normalde sormadığın bir soru sor." },
+    { "id": 25, "category": "social", "text": "Bugün, bir konuşma sırasında daha fazla dinlemeye ve daha az konuşmaya çalış." },
+    { "id": 26, "category": "social", "text": "Bugün, birine teşekkür ederken göz teması kur ve samimi ol." },
+    { "id": 27, "category": "social", "text": "Bugün, bir grup içinde normalde yapmadığın bir rolü üstlen." },
+    { "id": 28, "category": "social", "text": "Bugün, birine karşı önyargılı davrandığını fark edersen, bu davranışı değiştirmeye çalış." },
+    { "id": 29, "category": "social", "text": "Bugün, birine karşı minnettarlığını ifade et." },
+    { "id": 30, "category": "social", "text": "Bugün, birine karşı affedici olmaya çalış." },
+    { "id": 31, "category": "emotional", "text": "Bugün, gün içinde hissettiğin farklı duyguları bir not defterine yaz." },
+    { "id": 32, "category": "emotional", "text": "Bugün, seni rahatsız eden bir duyguyla yüzleşmeye çalış." },
+    { "id": 33, "category": "emotional", "text": "Bugün, seni mutlu eden bir aktiviteye zaman ayır." },
+    { "id": 34, "category": "emotional", "text": "Bugün, birine karşı empati kurmaya çalış." },
+    { "id": 35, "category": "emotional", "text": "Bugün, kendini ifade etmek için farklı bir yol dene (örneğin, resim, müzik)." },
+    { "id": 36, "category": "emotional", "text": "Bugün, duygusal tepkilerini gözlemle ve daha bilinçli tepki vermeye çalış." },
+    { "id": 37, "category": "emotional", "text": "Bugün, kendini şımartmak için küçük bir şey yap." },
+    { "id": 38, "category": "emotional", "text": "Bugün, olumlu düşünmeye odaklan." },
+    { "id": 39, "category": "emotional", "text": "Bugün, kendini kabul etmeye çalış." },
+    { "id": 40, "category": "emotional", "text": "Bugün, duygusal ihtiyaçlarını fark etmeye çalış." },
+    { "id": 41, "category": "creative", "text": "Bugün, rastgele bir nesne seç ve onu kullanarak bir hikaye veya şiir yaz." },
+    { "id": 42, "category": "creative", "text": "Bugün, bir müzik aleti çalmayı veya şarkı söylemeyi dene." },
+    { "id": 43, "category": "creative", "text": "Bugün, bir resim veya çizim yap." },
+    { "id": 44, "category": "creative", "text": "Bugün, farklı bir yemek tarifi dene." },
+    { "id": 45, "category": "creative", "text": "Bugün, evini farklı bir şekilde dekore et." },
+    { "id": 46, "category": "creative", "text": "Bugün, yaratıcı bir oyun oyna (örneğin, kelime oyunu)." },
+    { "id": 47, "category": "creative", "text": "Bugün, hayal gücünü kullanarak bir problem çözmeye çalış." },
+    { "id": 48, "category": "creative", "text": "Bugün, farklı bir sanat dalını keşfet." },
+    { "id": 49, "category": "creative", "text": "Bugün, yaratıcı bir projeye başla." },
+    { "id": 50, "category": "creative", "text": "Bugün, yaratıcılığını ifade etmek için farklı bir yol bul." },
+    { "id": 34, "category": "mental", "text": "Bugün, düşüncelerini bir deftere yazarak boşalt." },
+    { "id": 35, "category": "mental", "text": "Bugün, dış dünyayı sadece gözlerinle gözlemle, yorum yapmadan." },
+    { "id": 36, "category": "mental", "text": "Bugün, telefonuna bakmadan 1 saat geçir." },
+    { "id": 37, "category": "mental", "text": "Bugün, sık kullandığın bir kelimeyi hiç kullanmamayı dene." },
+    { "id": 38, "category": "mental", "text": "Bugün, her yeni düşünceye 'neden böyle düşünüyorum?' sorusunu sor." },
+    { "id": 39, "category": "mental", "text": "Bugün, sessiz bir ortamda gözlerini kapatıp 3 dakika otur." },
+    { "id": 40, "category": "mental", "text": "Bugün, zihninden geçen 5 düşünceyi yakala ve yaz." },
+    { "id": 41, "category": "mental", "text": "Bugün, tüm gün boyunca herhangi bir şey için yargılamamaya çalış." },
+    { "id": 42, "category": "mental", "text": "Bugün, sabah kalktığında ilk olarak olumlu bir niyet belirle." },
+    { "id": 43, "category": "mental", "text": "Bugün, 3 olumlu alışkanlığını fark et ve kutla." },
+    { "id": 44, "category": "mental", "text": "Bugün, sıradan bir nesneye farklı bir anlam yükle." },
+    { "id": 45, "category": "mental", "text": "Bugün, hiç gitmediğin bir sokakta yürümeyi hayal et." },
+    { "id": 46, "category": "mental", "text": "Bugün, bir konuyu kendi kendine tartış." },
+    { "id": 47, "category": "mental", "text": "Bugün, öğrenmek istediğin bir şey için 15 dakika ayır." },
+    { "id": 48, "category": "mental", "text": "Bugün, 'neden' sorusunu bir alışkanlığına uygula." },
+    { "id": 49, "category": "mental", "text": "Bugün, tüm gün boyunca 'şu an ne hissediyorum?' sorusunu kendine sor." },
+    { "id": 50, "category": "mental", "text": "Bugün, rastgele bir konuda 5 dakika boyunca düşün." },
+    { "id": 51, "category": "mental", "text": "Bugün, hayal gücünü harekete geçirecek bir şey çiz." },
+    { "id": 52, "category": "mental", "text": "Bugün, gelecekteki kendine mektup yaz." },
+    { "id": 53, "category": "mental", "text": "Bugün, aynı anda sadece tek bir şeye odaklan." },
+    { "id": 54, "category": "mental", "text": "Bugün, bir şiiri ezberlemeye çalış." },
+    { "id": 55, "category": "mental", "text": "Bugün, akşam yatağa yatmadan önce gününü gözden geçir." },
+    { "id": 56, "category": "mental", "text": "Bugün, alışılmış bir düşünce kalıbını tersine çevir." },
+    { "id": 57, "category": "mental", "text": "Bugün, zihinsel bir molaya ihtiyacın olduğunda hemen ara ver." },
+    { "id": 58, "category": "mental", "text": "Bugün, iç sesinle bir diyalog yap." },
+    { "id": 59, "category": "mental", "text": "Bugün, bir şeyi eleştirmeden önce en az bir olumlu yönünü bul." },
+    { "id": 60, "category": "mental", "text": "Bugün, bilmediğin bir konuda 5 dakikalık video izle." },
+    { "id": 61, "category": "mental", "text": "Bugün, sadece gözlemle. Müdahale etme." },
+    { "id": 62, "category": "mental", "text": "Bugün, kendine ait bir metafor üret." },
+    { "id": 63, "category": "mental", "text": "Bugün, içinden geldiği gibi bir konuda konuş." },
+    { "id": 64, "category": "mental", "text": "Bugün, kafandaki gürültüleri listele." },
+    { "id": 65, "category": "mental", "text": "Bugün, yalnızca olumlu cümleler kurmaya çalış." },
+    { "id": 66, "category": "mental", "text": "Bugün, zihninden geçenleri çizerek ifade et." }
+],
+
+"external" : [
+    { 
+        "id": 1, 
+        "category": "nature", 
+        "text": "Dünya'daki arı popülasyonu son 30 yılda %25'ten fazla azaldı. Bu durum, küresel gıda üretimini tehdit ediyor.", 
+        "source": "Kaynak: WWF Yaşayan Gezegen Raporu, 2022"
+    },
+    { 
+        "id": 2, 
+        "category": "human", 
+        "text": "Dünyada her gün yaklaşık 385.000 bebek doğuyor. Bu, saniyede 4.5 yeni hayat demek.", 
+        "source": "Kaynak: BM Dünya Nüfus Beklentileri, 2023"
+    },
+    { 
+        "id": 3, 
+        "category": "nature", 
+        "text": "Okyanuslar, atmosferdeki karbondioksitin %30'unu emer. Bu, iklim değişikliğini yavaşlatır ancak deniz asitlenmesine neden olur.", 
+        "source": "Kaynak: NOAA Okyanus Asitlenmesi Programı, 2023"
+    },
+    { 
+        "id": 4, 
+        "category": "human", 
+        "text": "Dünyada 7000'den fazla dil konuşuluyor, ancak her iki haftada bir dil tamamen yok oluyor.", 
+        "source": "Kaynak: UNESCO Tehlike Altındaki Diller Atlası, 2022"
+    },
+    { 
+        "id": 5, 
+        "category": "nature", 
+        "text": "Amazon yağmur ormanları, dünyadaki oksijen üretiminin %20'sini sağlıyor ve her dakika bir futbol sahası büyüklüğünde alan yok oluyor.", 
+        "source": "Kaynak: Amazon Koruma Derneği, 2023"
+    },
+    { 
+        "id": 6, 
+        "category": "human", 
+        "text": "Dünyada her gün 2 milyar insan temiz içme suyuna erişemiyor. Bu, her 4 kişiden 1'i demek.", 
+        "source": "Kaynak: Dünya Sağlık Örgütü Su Raporu, 2023"
+    },
+    { 
+        "id": 7, 
+        "category": "nature", 
+        "text": "Okyanuslardaki plastik atıklar, 2050 yılına kadar balıklardan daha fazla olabilir.", 
+        "source": "Kaynak: Ellen MacArthur Vakfı, Plastik Ekonomisi Raporu"
+    },
+    { 
+        "id": 8, 
+        "category": "human", 
+        "text": "İnsanlar günde ortalama 80-100 kez telefonlarını kontrol ediyor. Bu, uyanık olduğumuz her 10 dakikada bir demek.", 
+        "source": "Kaynak: Deloitte Dijital Tüketici Araştırması, 2023"
+    },
+    { 
+        "id": 9, 
+        "category": "nature", 
+        "text": "Kutuplardaki buzullar son 30 yılda %40 oranında inceldi. Bu, deniz seviyesinin yükselmesine katkıda bulunuyor.", 
+        "source": "Kaynak: NASA İklim Değişikliği Araştırması, 2023"
+    },
+    { 
+        "id": 10, 
+        "category": "human", 
+        "text": "Dünya nüfusunun %55'i şehirlerde yaşıyor ve bu oran 2050'ye kadar %68'e çıkacak.", 
+        "source": "Kaynak: BM Habitat Kentleşme Raporu, 2022"
+    }
+],
+
+"locked" : [
+  {
+    "password": "doğa2025",
+    "internal": "Bugün doğaya sessizce kulak ver.",
+    "external": "2030’a kadar 1 milyon tür yok olma riski taşıyor.",
+    "source": "WWF 2023"
+  },
+  {
+    "password": "suyaSaygı",
+    "internal": "Musluğu 1 dakika erken kapat.",
+    "external": "1 dakikada 10 litre su boşa akar.",
+    "source": "DSİ 2022"
+  }
+]
+}
